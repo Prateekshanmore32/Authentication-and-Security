@@ -4,7 +4,7 @@ When the user tries to register by giving a username/email and password we are g
 But the disadvantage of using level 1 authentication is that we can see our user's password in plain text inside our database, which is pretty bad.<br><br>
 ## **Level 2: Encryption** <br>
 To add some level of security we can leverage something called encryption.
-Here, we can use an npm package called mongoose-encryption. This uses the AES algorithm for encryption and decryption. <br>
+Here, we can use an npm package called [mongoose-encryption](https://www.npmjs.com/package/mongoose-encryption). This uses the AES algorithm for encryption and decryption. <br>
 Steps:<br>
 1. npm i mongoose-encryption<br>
 2. const encrypt = require('mongoose-encryption')<br>
@@ -23,7 +23,7 @@ Although in level 2 we have achieved some level of security but still there are 
 The Hashing Function will convert the password into a hash value. And it is almost impossible to convert that hash value back to normal text/password. 
 So, when the user registers with their username and password, we will convert the password into a hash value and save it inside our database. and when the user tries to log in with their username and password we will convert that password into a hash and compare it against the value stored inside the database.
 Hash Function always generates the same hash for the same plain text.
-Here we'll use the md5 npm package for hashing our passwords.<br>
+Here we'll use the [md5](https://www.npmjs.com/package/md5) npm package for hashing our passwords.<br>
 Steps,<br>
 step 1: npm i md5<br>
 step 2: const md5 = require('md5')<br>
