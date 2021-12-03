@@ -28,3 +28,13 @@ Steps,<br>
 step 1: npm i md5<br>
 step 2: const md5 = require('md5')<br>
 step 3:md5(message)<br>
+## **Level 4: Salting and Hashing**<br>
+Salting the user's password means, we'll add some randomly generated numbers/chars(salt) to the user's password and will pass it to a hashing function or algorithm([bcrypt](https://www.npmjs.com/package/bcrypt)) which will give us a hash value. Here, we are going to save the salt and the hash value when the user registers and will use the same salt and password when they try to log in and check against the hash value stored inside the database. We can also give salt rounds.
+Steps,<br>
+step 1: npm i bcrypt<br>
+step 2:  bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
+ // Store hash in your password DB.
+});<br>
+step 3: bcrypt.compare(myPlaintextPassword, hash, function(err, result) {
+ // result == true
+});
