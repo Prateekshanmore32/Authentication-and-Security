@@ -38,7 +38,7 @@ step 2:  bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
 step 3: bcrypt.compare(myPlaintextPassword, hash, function(err, result) {
  // result == true
 });<br>
-##**Level 5: Cookies and Sessions**<br>
+## **Level 5: Cookies and Sessions**<br>
 Steps:<br>
 Step 1: npm i passport passport-local passport-local-mongoose express-session<br>
 Step 2: app.use(session({
