@@ -37,4 +37,22 @@ step 2:  bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
 });<br>
 step 3: bcrypt.compare(myPlaintextPassword, hash, function(err, result) {
  // result == true
+});<br>
+##**Level 5: Cookies and Sessions**<br>
+Steps:<br>
+Step 1: npm i passport passport-local passport-local-mongoose express-session<br>
+Step 2: app.use(session({
+ secret: 'my little secret',
+ resave: false,
+ saveUninitialized: false
+}));<br>
+Step 3: app.use(passport.initialize()); <br>
+app.use(passport.session());<br>
+Step 4: userSchema.plugin(passportLocalMongoose);<br>
+Step 5: passport.use(User.createStrategy());<br>
+Step 6: passport.serializeUser(function(user, done) {
+ done(null, user);
+});<br>
+passport.deserializeUser(function(user, done) {
+ done(null, user);
 });
