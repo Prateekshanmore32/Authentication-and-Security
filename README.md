@@ -40,7 +40,7 @@ step 3: bcrypt.compare(myPlaintextPassword, hash, function(err, result) {
 });<br>
 ## **Level 5: Cookies and Sessions**<br>
 Steps:<br>
-Step 1: npm i passport passport-local passport-local-mongoose express-session<br>
+Step 1: npm i [passport](https://www.passportjs.org/docs/downloads/html/) [passport-local](http://www.passportjs.org/packages/passport-local/) [passport-local-mongoose](https://www.npmjs.com/package/passport-local-mongoose) [express-session](https://www.npmjs.com/package/express-session)<br>
 Step 2: app.use(session({
  secret: 'my little secret',
  resave: false,
