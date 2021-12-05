@@ -56,3 +56,49 @@ Step 6: passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(user, done) {
  done(null, user);
 });
+## **Level 6: Third-Party OAuth**<br>
+Let’s say you have an APP where users can log in and use your app. But to authorize your users you have to ask them to create their account by giving their username and password. Instead of saving and encrypting their info into your database, you can use something called OAuth, to identify your users.
+OAuth is nothing but third-party open Authorization. To understand this more clearly, let's say you have installed an app from the play store. There you’ll be able to see, sign in with Google or Facebook or GitHub, etc. That means that the app is using Google or Facebook or Github to authorize you (coz you already have an account there and they have saved your username and password(encrypted) into their database). This will reduce a lot of overhead. <br>
+But why OAuth?<br>
+1. Granular Access Levels. That means you can ask them for pieces of information like email id, profile pic, etc.<br>
+2. Read/Read and write access. Eg, from WordPress you can post on Facebook(read+write)<br>
+3. Revoke access. You can revoke thrid party access anytime you want to.<br>
+But how to use OAuth for third-party authorization?<br>
+Step 1: Set up your app. Tell them (Google)about your app or website<br>
+Step 2: Redirect to authentication<br>
+Step 3: User logs in<br>
+Step 4: User grants permission<br>
+Step 5: Receives authorization code (eg, Google — — — — —> Your app)<br>
+Step 6: Exchange auth code for an access token (Google <— — Your app and then google — — → Your app)<br>
+To do all of these, follow the instructions below,<br>
+1. npm install passport-google-oauth20<br>
+2. Go to google developer console and create a new project<br>
+3. Now under the OAuth consent screen, fill up the required things and continue<br>
+4. Now under credentials, click on create credentials and select OAuth Client ID<br>
+5. Under Authorized JavaScript origins, add http://localhost:3000 (since we are just testing)<br>
+6. And under Authorized redirect URIs, add http://localhost:3000/auth/google/practice<br>
+7. Copy those client ID and secret and save them inside your .env file<br>
+8. const GoogleStrategy = require(‘passport-google-oauth20’).Strategy;<br>
+9. Add the following code below serialize and deserialize,<br>
+passport.use(new GoogleStrategy({
+    clientID: process.env.CLIENT_ID,
+    clientSecret:process.env.CLIENT_SECRET,
+    callbackURL: "http://www.example.com/auth/google/callback",
+    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
+10. npm install mongoose-findorcreate<br>
+11. userSchema.plugin(findOrCreate);<br>
+12. app.get(‘/auth/google’,
+passport.authenticate(‘google’, { scope: [‘profile’] }));<br>
+13. app.get(‘/auth/google/practice’,
+passport.authenticate(‘google’, { failureRedirect: ‘/login’ }),
+function(req, res) {
+// Successful authentication, redirect home.
+res.redirect(‘/secrets’);
+});
